@@ -12,19 +12,18 @@ function load_map()
     map
 end
 
-function map_walk(map, step_right, step_down)
+function map_walk(map, step_x, step_y)
     tree_count = 0
     x = 1
     y = 1
-    max_y = length(map)
 
     while y <= length(map)
         if map[y][x] == '#'
             tree_count += 1
         end
 
-        x += step_right
-        y += step_down
+        x += step_x
+        y += step_y
     end
 
     tree_count
