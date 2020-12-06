@@ -5,10 +5,9 @@ const groups = fs.readFileSync("input")
                     .split("\n\n")
                     .map((l) => l.split("\n"));
 
-
 const flatten = xs => [].concat(...xs);
-const counts = groups.map((g) => new Set(flatten(g.map(flatten))).size)
+const counts = groups.map((g) => new Set(flatten(g.map(flatten))).size);
 
-console.log(`Answer: ${counts.reduce((a,b) => a + b, 0)}`)
+console.log(`Answer: ${counts.reduce((a,b) => a + b)}`);
 
 module.exports = {groups}
