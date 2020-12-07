@@ -3,11 +3,11 @@ const fs = require('fs');
 const groups = fs.readFileSync("input")
                     .toString('utf-8')
                     .split("\n\n")
-                    .map((l) => l.split("\n"));
+                    .map(l => l.split("\n"));
 
-const flatten = xs => [].concat(...xs);
-const counts = groups.map((g) => new Set(flatten(g.map(flatten))).size);
+const sum = (a,b) => a + b
+const counts = groups.map(g => new Set(g.reduce(sum)).size)
 
-console.log(`Answer: ${counts.reduce((a,b) => a + b)}`);
+console.log(`Answer: ${counts.reduce(sum)}`);
 
-module.exports = {groups}
+module.exports = {groups, sum}
