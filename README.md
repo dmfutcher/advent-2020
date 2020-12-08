@@ -9,3 +9,5 @@ Advent of Code 2020 in 25 different languages
 - Day 5: Elixir
 - Day 6: Javascript
 - Day 7: Ruby
+- Day 8: Fortran
+
