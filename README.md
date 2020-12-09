@@ -10,4 +10,5 @@ Advent of Code 2020 in 25 different languages
 - Day 6: Javascript
 - Day 7: Ruby
 - Day 8: Fortran
+- Day 9: C
 
