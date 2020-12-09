@@ -75,6 +75,8 @@ int first_non_sum(long *ptr) {
     return -1;
 }
 
+#ifndef NO_PART1_MAIN
+
 int main() {
     long *values = NULL;
 
@@ -84,3 +86,5 @@ int main() {
 
     free(values);
 }
+
+#endif
