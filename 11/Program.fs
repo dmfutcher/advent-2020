@@ -1,4 +1,6 @@
-﻿type SeatGrid = {
+﻿open FSharp.Collections.ParallelSeq
+
+type SeatGrid = {
     items: char list
     width: int
     height: int
@@ -25,7 +27,7 @@ let inline toIndex grid xy =
     let (x, y) = xy
     y * grid.width + x
 
-let adjacents grid i = 
+let adjacents grid i =
     let (x,y) = toXY grid i
 
     let positions = [
@@ -38,7 +40,8 @@ let adjacents grid i =
         |> List.map (fun pos -> grid.items.Item (toIndex grid pos))
     
 let nextGeneration grid =
-    {items = grid.items |> List.mapi (fun i v -> nextSeatVal v (adjacents grid i)); width = grid.width; height = grid.height}
+    let newItems = grid.items |> PSeq.mapi (fun i v -> nextSeatVal v (adjacents grid i)) |> PSeq.toList
+    {items = newItems; width = grid.width; height = grid.height}
     
 let printGrid grid = 
     grid.items |> List.chunkBySize grid.width |> List.iter (fun l -> printfn "%A" (l |> Array.ofList |> System.String.Concat))
@@ -56,6 +59,6 @@ let main argv =
     let grid = {items = List.concat input; width = width; height = height}
     
     let next = findStableGeneration grid
-    printfn "%A" (next.items |> List.filter '#'.Equals).Length
+    printfn "Part 1: %A" (next.items |> List.filter '#'.Equals).Length
 
     0
