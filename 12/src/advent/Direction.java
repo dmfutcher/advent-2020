@@ -93,6 +93,10 @@ public class Direction {
         return value;
     }
 
+    public void setValue(int val) {
+        this.value = val;
+    }
+
     public int getAbsoluteValue() {
         return Math.abs(value);
     }

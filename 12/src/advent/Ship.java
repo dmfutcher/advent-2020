@@ -2,18 +2,16 @@ package advent;
 
 public class Ship {
 
-    private Direction ew;
-    private Direction ns;
-    private Direction.Cardinal heading;
+    protected Point location;
+    protected Direction.Cardinal heading;
 
     public Ship() {
-        this.ew = new Direction(Direction.Cardinal.EAST, 0);
-        this.ns = new Direction(Direction.Cardinal.NORTH, 0);
+        this.location = new Point();
         this.heading = Direction.Cardinal.EAST;
     }
 
     public int distanceFromOrigin() {
-        return this.ew.getAbsoluteValue() + this.ns.getAbsoluteValue();
+        return this.location.ew.getAbsoluteValue() + this.location.ns.getAbsoluteValue();
     }
 
     public void performInstruction(String instruction) {
@@ -22,11 +20,11 @@ public class Ship {
         switch (opcode) {
             case 'N':
             case 'S':
-                this.ns.plus(new Direction(instruction));
+                this.location.ns.plus(new Direction(instruction));
                 return;
             case 'E':
             case 'W':
-                this.ew.plus(new Direction(instruction));
+                this.location.ew.plus(new Direction(instruction));
                 return;
             case 'L':
             case 'R':
@@ -41,15 +39,15 @@ public class Ship {
                 return;
             case 'F':
                 if (this.heading == Direction.Cardinal.NORTH || this.heading == Direction.Cardinal.SOUTH) {
-                    this.ns.plus(new Direction(this.heading.toString() + instruction.substring(1)));
+                    this.location.ns.plus(new Direction(this.heading.toString() + instruction.substring(1)));
                 } else {
-                    this.ew.plus(new Direction(this.heading.toString() + instruction.substring(1)));
+                    this.location.ew.plus(new Direction(this.heading.toString() + instruction.substring(1)));
                 }
         }
     }
 
     public String toString() {
-        return String.format("Ship is at %s, %s, facing %s", this.ew, this.ns, this.heading);
+        return String.format("Ship is at (%s), facing %s", this.location, this.heading);
     }
 
 }

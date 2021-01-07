@@ -13,3 +13,4 @@ Advent of Code 2020 in 25 different languages
 - Day 9: C
 - Day 10: Nim
 - Day 11: F#
+- Day 12: Java
