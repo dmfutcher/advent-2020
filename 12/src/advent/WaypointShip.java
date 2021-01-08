@@ -10,36 +10,6 @@ public class WaypointShip extends Ship {
         this.waypoint = waypoint;
     }
 
-//        complex: () => {
-//        let degreesBound = degrees;
-//        while (degreesBound > 0) {
-//        const temp = waypoint.x;
-//        waypoint.x = waypoint.y;
-//        waypoint.y = -temp;
-//        degreesBound -= 90;
-//        }
-//        },
-//        };
-//        },
-//        R: (degrees) => {
-//        return {
-//        simple: () => {
-//        let degreesBound = degrees;
-//        while (degreesBound > 0) {
-//        bearing.direction = right[bearing.direction];
-//        degreesBound -= 90;
-//        }
-//        },
-//        complex: () => {
-//        let degreesBound = degrees;
-//        while (degreesBound > 0) {
-//        const temp = waypoint.x;
-//        waypoint.x = -waypoint.y;
-//        waypoint.y = temp;
-//        degreesBound -= 90;
-//        }
-//        },
-
     private void rotateWaypointClockwise() {
         int nsVal = waypoint.ns.getValue();
         waypoint.ns.setValue(-waypoint.ew.getValue());
