@@ -8,7 +8,7 @@ class Validator
     end
 
     def is_valid?(v : Int32)
-        return @ranges.any?(&.includes? v)
+        @ranges.any?(&.includes? v)
     end
 end
 
@@ -19,12 +19,18 @@ def get_input()
     our_ticket = lines[lines.index("your ticket:").not_nil! + 1].split(',').map(&.to_i)
     nearby_tickets = lines[(lines.index("nearby tickets:").not_nil! + 1)..].map(&.split(',').map(&.to_i))
     
-    return { validators, our_ticket, nearby_tickets }
+    { validators, our_ticket, nearby_tickets }
 end
 
-validators, _, nearby_tickets = get_input()
-invalid_vals = nearby_tickets.map { |ticket|
-    ticket.select{ |field| validators.none?(&.is_valid? field) }
-}.flatten
+def part_one() 
+    validators, _, nearby_tickets = get_input()
+    invalid_vals = nearby_tickets.map { |ticket|
+        ticket.select{ |field| validators.none?(&.is_valid? field) }
+    }.flatten
+    
+    puts invalid_vals.sum
+end
 
-puts invalid_vals.sum
+{% if flag?(:part_one_main) %}
+part_one()
+{% end %}
