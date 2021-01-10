@@ -17,4 +17,4 @@ Advent of Code 2020 in 25 different languages
 - Day 13: Swift
 - Day 14: Kotlin
 - Day 15: Racket
-
+- Day 16: Crystal
