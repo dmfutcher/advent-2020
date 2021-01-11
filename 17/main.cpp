@@ -19,6 +19,7 @@ class Point {
         std::unordered_set<Point<D>> neighbours();
         std::unordered_set<Point<D>> neighbours3();
         std::unordered_set<Point<D>> neighbours4();
+        Point<4> to4D();
 
         bool operator==(const Point<D>& other) const
         {
@@ -94,18 +95,28 @@ std::unordered_set<Point<D>> Point<D>::neighbours4()
     int possibilities[] = {1, 0, -1};
     std::unordered_set<Point<D>> neighbours;
 
-    for (auto x : possibilities) 
+    for (auto x : possibilities)
+    {
         for (auto y : possibilities)
             for (auto z : possibilities)
                 for (auto w : possibilities)
                 {
-                    if (x == 0 && y == 0 && z == 0) 
+                    if (x == 0 && y == 0 && z == 0 && w == 0) 
                         continue;
 
                     neighbours.insert(Point<D>({this->coordinates[0] + x, this->coordinates[1] + y, this->coordinates[2] + z, this->coordinates[3] + w}));
                 }
+    }
 
     return neighbours;
+}
+
+template <std::size_t D>
+Point<4> Point<D>::to4D()
+{
+    auto coords = this->coordinates;
+    coords.resize(4, 0);
+    return Point<4>(coords);
 }
 
 // Defines the hash function for Point so it can be used in std::unordered_set
@@ -221,11 +232,29 @@ std::unordered_set<Point<3>> parse_input()
     return points;
 }
 
+void part_one(std::unordered_set<Point<3>> initial_points) 
+{
+    auto space = new PocketSpace<3>(initial_points);
+    auto active_at_end = space->simulate();
+
+    std::cout << "Part One: " << active_at_end.size() << " cubes active" << std::endl;
+}
+
+void part_two(std::unordered_set<Point<4>> initial_points)
+{
+    auto space = new PocketSpace<4>(initial_points);
+    auto active_at_end = space->simulate();
+
+    std::cout << "Part Two: " << active_at_end.size() << " cubes active" << std::endl; 
+}
+
 int main() 
 {
-    auto input = parse_input();
-    auto space3D = new PocketSpace<3>(input);
-    auto active_at_end = space3D->simulate();
+    auto initial_points = parse_input();
+    part_one(initial_points);
 
-    std::cout << active_at_end.size() << " cubes active" << std::endl;
+    std::unordered_set<Point<4>> points_4d;
+    std::transform(initial_points.begin(), initial_points.end(), std::inserter(points_4d, points_4d.begin()),
+                   [](Point<3> p) -> Point<4> { return p.to4D(); });
+    part_two(points_4d);
 }
